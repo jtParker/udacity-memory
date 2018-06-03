@@ -2,7 +2,8 @@
  * Create a list that holds all of your cards
  */
 
-
+// TODO: 1: Create array of cards and implement shuffle
+// TODO: 2: Add event listeners to cards 
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
