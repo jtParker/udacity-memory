@@ -1,3 +1,4 @@
+// Shuffle cards and ready the game for play
 const cardArr = ['fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bolt', 'fa fa-headphones', 'fa fa-leaf', 'fa fa-gamepad', 'fa fa-bomb', 'fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bolt', 'fa fa-headphones', 'fa fa-leaf', 'fa fa-gamepad', 'fa fa-bomb',];
 
 let deckArr = document.querySelectorAll("li.card > i");
@@ -27,6 +28,16 @@ function shuffle(array) {
 
     return array;
 }
+
+// Click handler
+const card = document.getElementsByClassName('card');
+
+card.onclick(// TODO: add function);
+
+function cardClick() {
+
+}
+
 
 
 /*
