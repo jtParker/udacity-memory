@@ -1,15 +1,17 @@
-/*
- * Create a list that holds all of your cards
- */
+const cardArr = ['fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bolt', 'fa fa-headphones', 'fa fa-leaf', 'fa fa-gamepad', 'fa fa-bomb', 'fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bolt', 'fa fa-headphones', 'fa fa-leaf', 'fa fa-gamepad', 'fa fa-bomb',];
 
-// TODO: 1: Create array of cards and implement shuffle
-// TODO: 2: Add event listeners to cards 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+let deckArr = document.querySelectorAll("li.card > i");
+
+readyGame(deckArr);
+
+function readyGame(arr) {
+  let shuffledCards = shuffle(cardArr);
+  for (let i = 0; i <= arr.length; i++) {
+    let elm = arr[i];
+    let newClass = shuffledCards[i];
+    elm.className = newClass;
+   }
+ }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
