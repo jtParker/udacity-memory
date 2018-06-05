@@ -7,7 +7,7 @@ readyGame(deckArr);
 
 function readyGame(arr) {
   let shuffledCards = shuffle(cardArr);
-  for (let i = 0; i <= arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     let elm = arr[i];
     let newClass = shuffledCards[i];
     elm.className = newClass;
@@ -32,10 +32,28 @@ function shuffle(array) {
 // Click handler
 const card = document.getElementsByClassName('card');
 
-card.onclick(// TODO: add function);
+// card.onclick();
 
 function cardClick() {
+// flip the card
+// start the timer
+// check card
+}
 
+timer('on');
+
+// timer function
+function timer(toggle) {
+  var time = 0;
+  if (toggle === 'on') {
+    var start = Date.now();
+    console.log(start);
+    // document.getElementByClassName('timer').innerHTML = start;
+  } else if (toggle === 'off'){
+    time = Date.now() - start;
+    console.log(time);
+    return Math.floor(time);
+  }
 }
 
 
