@@ -33,21 +33,24 @@ function shuffle(array) {
 
 // Click handler
 
-card.addEventListener('click',cardClick);
-
-function cardClick() {
+function cardClick(e) {
 timer();
-flipCard();
+flipCard(e);
 // flip the card
 // start the timer
 // check card
 }
 
+document.addEventListener('click',function(e) {
+  if (e.target.className === "card") {
+    cardClick(e);
+  }
+});
 
 // Flip the clicked card
 
-function flipCard(event) {
-  event.target.className = ".deck .card.open";
+function flipCard(e) {
+  e.target.className = ".deck .card.open";
 }
 // timer function
 
