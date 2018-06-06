@@ -1,7 +1,9 @@
 // Shuffle cards and ready the game for play
 const cardArr = ['fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bolt', 'fa fa-headphones', 'fa fa-leaf', 'fa fa-gamepad', 'fa fa-bomb', 'fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bolt', 'fa fa-headphones', 'fa fa-leaf', 'fa fa-gamepad', 'fa fa-bomb',];
-
-let deckArr = document.querySelectorAll("li.card > i");
+const card = document.querySelectorAll('.card');
+let deckArr = document.querySelectorAll('li.card > i');
+let timeEl = document.getElementById('timer');
+let seconds = 0;
 
 readyGame(deckArr);
 
@@ -30,32 +32,38 @@ function shuffle(array) {
 }
 
 // Click handler
-const card = document.getElementsByClassName('card');
 
-// card.onclick();
+card.addEventListener('click',cardClick);
 
-// function cardClick() {
-// timer();
-// // flip the card
-// // start the timer
-// // check card
-// }
+function cardClick() {
+timer();
+flipCard();
+// flip the card
+// start the timer
+// check card
+}
 
 
+// Flip the clicked card
+
+function flipCard(event) {
+  event.target.className = ".deck .card.open";
+}
 // timer function
 
-let timeEl = document.getElementById('timer');
-let time;
-let seconds = 0;
-
 function timer() {
+  let time;
   time = setTimeout(incrementTime, 1000);
-  timeEl.textContent = "Time: " + time;
+  timeEl.textContent = time;
 }
 
 function incrementTime() {
   seconds++;
   timer();
+}
+
+function stopTimer() {
+  clearTimeout(time);
 }
 
 
