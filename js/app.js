@@ -34,28 +34,29 @@ const card = document.getElementsByClassName('card');
 
 // card.onclick();
 
-function cardClick() {
-// flip the card
-// start the timer
-// check card
-}
+// function cardClick() {
+// timer();
+// // flip the card
+// // start the timer
+// // check card
+// }
 
-timer('on');
 
 // timer function
-function timer(toggle) {
-  var time = 0;
-  if (toggle === 'on') {
-    var start = Date.now();
-    console.log(start);
-    // document.getElementByClassName('timer').innerHTML = start;
-  } else if (toggle === 'off'){
-    time = Date.now() - start;
-    console.log(time);
-    return Math.floor(time);
-  }
+
+let timeEl = document.getElementById('timer');
+let time;
+let seconds = 0;
+
+function timer() {
+  time = setTimeout(incrementTime, 1000);
+  timeEl.textContent = "Time: " + time;
 }
 
+function incrementTime() {
+  seconds++;
+  timer();
+}
 
 
 /*
