@@ -3,7 +3,8 @@ const cardArr = ['fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bo
 const card = document.querySelectorAll('.card');
 let deckArr = document.querySelectorAll('li.card > i');
 let timeEl = document.getElementById('timer');
-let seconds = 0;
+let selections = [];
+let moves = 0;
 
 readyGame(deckArr);
 
@@ -34,15 +35,18 @@ function shuffle(array) {
 // Click handler
 
 function cardClick(e) {
-timer();
-flipCard(e);
+  moves++;
+  compare(selections);
 // flip the card
 // start the timer
 // check card
 }
 
 document.addEventListener('click',function(e) {
-  if (e.target.className === "card") {
+  let pick = e.target;
+  if (pick.className === "card") {
+    selections.push(pick);
+    console.log(selections);
     cardClick(e);
   }
 });
@@ -50,19 +54,38 @@ document.addEventListener('click',function(e) {
 // Flip the clicked card
 
 function flipCard(e) {
-  e.target.className = ".deck .card.open";
+  e.target.className = "card open show";
 }
-// timer function
+
+// Compare cards
+
+function compare(selections) {
+  let match = selections.indexOf(selections[card]);
+
+  if (moves === 2) {
+    flipCard(e);
+    for(let card in selections) {
+      if(match > -1) {
+        selections[card].className = "card open match";
+      } else{
+        selections[card].className = "card";
+        selections = [];
+      }
+    }
+  } else {
+    flipCard(e);
+    return;
+  }
+}
+// timer functions
 
 function timer() {
   let time;
-  time = setTimeout(incrementTime, 1000);
+  let seconds = 0;
+  time = setTimeout(function() {
+    seconds++;
+  }, 1000);
   timeEl.textContent = time;
-}
-
-function incrementTime() {
-  seconds++;
-  timer();
 }
 
 function stopTimer() {
