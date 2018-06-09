@@ -5,6 +5,8 @@ let deckArr = document.querySelectorAll('li.card > i');
 let timeEl = document.getElementById('timer');
 let selections = [];
 let moves = 0;
+let flips = 0;
+let seconds = 0;
 
 readyGame(deckArr);
 
@@ -35,8 +37,12 @@ function shuffle(array) {
 // Click handler
 
 function cardClick(e) {
+  let interval;
+  if (moves === 0) {
+    interval = setInterval(timer, 1000);
+  }
   moves++;
-  compare(selections);
+  compare(selections, e);
 // flip the card
 // start the timer
 // check card
@@ -59,33 +65,51 @@ function flipCard(e) {
 
 // Compare cards
 
-function compare(selections) {
-  let match = selections.indexOf(selections[card]);
-
-  if (moves === 2) {
+function compare(selections, e) {
+  flips++
+  if (flips === 2) {
     flipCard(e);
-    for(let card in selections) {
-      if(match > -1) {
-        selections[card].className = "card open match";
-      } else{
-        selections[card].className = "card";
-        selections = [];
+    for (var i = 0; i < selections.length; i++) {
+      let card1 = selections[i + 1];
+      let card2 = selections[i];
+      let icon1 = selections[i + 1].children;
+      let icon2 = selections[i].children;
+      if (icon1 == icon2) {
+        card1.className = 'card match'
+        card2.className = 'card match'
+        flips = 0;
+        clearSelections(card1, card2, icon1, icon2, selections);
+        break;
+      } else {
+        flips = 0;
+        setTimeout(function() {
+          card1.className = 'card'
+          card2.className = 'card'
+        }, 1000);
+        clearSelections(card1, card2, icon1, icon2, selections);
+        break;
       }
     }
+    selections = [];
+    console.log(selections);
   } else {
     flipCard(e);
     return;
   }
 }
+
+function clearSelections(card1, card2, icon1, icon2, selections) {
+  card1 = '';
+  card2 = '';
+  icon1 = '';
+  icon2 = '';
+  selections.splice(0);
+}
 // timer functions
 
 function timer() {
-  let time;
-  let seconds = 0;
-  time = setTimeout(function() {
-    seconds++;
-  }, 1000);
-  timeEl.textContent = time;
+  seconds++
+  timeEl.innerHTML = seconds;
 }
 
 function stopTimer() {
