@@ -72,9 +72,9 @@ function compare(selections, e) {
     for (var i = 0; i < selections.length; i++) {
       let card1 = selections[i + 1];
       let card2 = selections[i];
-      let icon1 = selections[i + 1].children;
-      let icon2 = selections[i].children;
-      if (icon1 == icon2) {
+      let icon1 = card1.children;
+      let icon2 = card2.children;
+      if (icon1.dataset === icon2.dataset) {
         card1.className = 'card match'
         card2.className = 'card match'
         flips = 0;
