@@ -79,21 +79,21 @@ function compare(selections, e) {
         }, 800);
       }
     }
-    selections = [];
   } else {
     flipCard(e);
     return;
   }
   flips = 0;
-  console.log(selections.every(allMatched));
+  allMatched();
 }
 
 // check for completion
 
-function allMatched(element, index, array) {
-  selections.every(function() {
-    return element[index].className.split() === 'card match';
-  })
+function allMatched() {
+  let currentCards = document.getElementsByClassName('card match');
+  if (currentCards.length === 16) {
+    
+  }
 }
 
 // timer functions
