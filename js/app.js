@@ -43,16 +43,12 @@ function cardClick(e) {
   }
   moves++;
   compare(selections, e);
-// flip the card
-// start the timer
-// check card
 }
 
 document.addEventListener('click',function(e) {
   let pick = e.target;
   if (pick.className === "card") {
-    selections.push(pick);
-    console.log(selections);
+    selections.unshift(pick);
     cardClick(e);
   }
 });
@@ -70,41 +66,36 @@ function compare(selections, e) {
   if (flips === 2) {
     flipCard(e);
     for (var i = 0; i < selections.length; i++) {
-      let card1 = selections[i + 1];
-      let card2 = selections[i];
-      let icon1 = card1.children;
-      let icon2 = card2.children;
-      if (icon1.dataset === icon2.dataset) {
+      let card1 = selections[0];
+      let card2 = selections[1];
+      if (card1.firstElementChild.className === card2.firstElementChild.className) {
         card1.className = 'card match'
         card2.className = 'card match'
-        flips = 0;
-        clearSelections(card1, card2, icon1, icon2, selections);
         break;
       } else {
-        flips = 0;
         setTimeout(function() {
           card1.className = 'card'
           card2.className = 'card'
-        }, 1000);
-        clearSelections(card1, card2, icon1, icon2, selections);
-        break;
+        }, 800);
       }
     }
     selections = [];
-    console.log(selections);
   } else {
     flipCard(e);
     return;
   }
+  flips = 0;
+  console.log(selections.every(allMatched));
 }
 
-function clearSelections(card1, card2, icon1, icon2, selections) {
-  card1 = '';
-  card2 = '';
-  icon1 = '';
-  icon2 = '';
-  selections.splice(0);
+// check for completion
+
+function allMatched(element, index, array) {
+  selections.every(function() {
+    return element[index].className.split() === 'card match';
+  })
 }
+
 // timer functions
 
 function timer() {
