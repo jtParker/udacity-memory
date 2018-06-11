@@ -3,11 +3,13 @@ const cardArr = ['fa fa-diamond', 'fa fa-space-shuttle', 'fa fa-beer', 'fa fa-bo
 const card = document.querySelectorAll('.card');
 let deckArr = document.querySelectorAll('li.card > i');
 let timeEl = document.getElementById('timer');
+let movesEl = document.getElementById('moves');
 let selections = [];
 let moves = 0;
 let flips = 0;
 let seconds = 0;
 
+// Shuffle cards and reset the game
 readyGame(deckArr);
 
 function readyGame(arr) {
@@ -42,6 +44,7 @@ function cardClick(e) {
     interval = setInterval(timer, 1000);
   }
   moves++;
+  movesEl.innerHTML = moves;
   compare(selections, e);
 }
 
@@ -84,6 +87,7 @@ function compare(selections, e) {
     return;
   }
   flips = 0;
+  stopTimer();
   allMatched();
 }
 
@@ -92,7 +96,7 @@ function compare(selections, e) {
 function allMatched() {
   let currentCards = document.getElementsByClassName('card match');
   if (currentCards.length === 16) {
-    
+
   }
 }
 
