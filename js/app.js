@@ -7,6 +7,7 @@ let movesEl = document.getElementById('moves');
 let selections = [];
 let moves = 0;
 let flips = 0;
+let interval;
 let seconds = 0;
 
 // Shuffle cards and reset the game
@@ -39,7 +40,6 @@ function shuffle(array) {
 // Click handler
 
 function cardClick(e) {
-  let interval;
   if (moves === 0) {
     interval = setInterval(timer, 1000);
   }
@@ -65,6 +65,7 @@ function flipCard(e) {
 // Compare cards
 
 function compare(selections, e) {
+  let currentCards = document.getElementsByClassName('card match');
   flips++
   if (flips === 2) {
     flipCard(e);
@@ -79,36 +80,36 @@ function compare(selections, e) {
         setTimeout(function() {
           card1.className = 'card'
           card2.className = 'card'
-        }, 800);
+        }, 700);
       }
     }
+  } else if (currentCards.length === 16){
+    clearInterval(interval);
+    allMatched();
   } else {
     flipCard(e);
     return;
   }
   flips = 0;
-  stopTimer();
-  allMatched();
 }
 
 // check for completion
 
 function allMatched() {
-  let currentCards = document.getElementsByClassName('card match');
-  if (currentCards.length === 16) {
-
-  }
+  let modal = document.getElementById('win-modal');
+  let finalMoves = document.getElementById('final-moves');
+  let finalTime = document.getElementById('final-time');
+    finalMoves.innerHTML = moves;
+    // document.getElementById('final-rank').innerHTML = rank;
+    finalTime.innerHTML = seconds;
+    modal.style = "visibility: visible;";
 }
 
-// timer functions
+// timer
 
 function timer() {
   seconds++
   timeEl.innerHTML = seconds;
-}
-
-function stopTimer() {
-  clearTimeout(time);
 }
 
 
