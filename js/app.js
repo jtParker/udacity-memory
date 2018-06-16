@@ -11,14 +11,41 @@ let interval;
 let seconds = 0;
 
 // Shuffle cards and reset the game
+
 readyGame(deckArr);
 
 function readyGame(arr) {
+  let deck = document.querySelectorAll('.deck, li');
   let shuffledCards = shuffle(cardArr);
+  let moves = document.querySelector('#moves');
+  let timer = document.querySelector('#timer');
+  timer = 0;
+  moves = 0;
+  resetCards(selections);
   for (let i = 0; i < arr.length; i++) {
     let elm = arr[i];
     let newClass = shuffledCards[i];
     elm.className = newClass;
+   }
+ }
+
+ function newGame(arr) {
+   let modal = document.querySelector('#win-modal');
+   let modalOverlay = document.querySelector('#modal-overlay');
+   let secondElem = document.querySelector('#timer');
+   let movesElem = document.querySelector('#moves')
+   modal.classList.toggle('closed');
+   modalOverlay.classList.toggle('closed');
+   secondElem.innerHTML = '';
+   movesElem.innerHTML ='';
+   seconds = 0;
+   moves = 0;
+   readyGame(arr);
+ }
+
+ function resetCards(selections) {
+   for (var i = 0; i < selections.length; i++) {
+     selections[i].className = 'card';
    }
  }
 
@@ -37,22 +64,32 @@ function shuffle(array) {
     return array;
 }
 
-// Click handler
+// Card click handler
 
 function cardClick(e) {
+  let currentCards = document.getElementsByClassName('card match');
   if (moves === 0) {
     interval = setInterval(timer, 1000);
   }
   moves++;
   movesEl.innerHTML = moves;
   compare(selections, e);
+  starRank(currentCards);
+  if (currentCards.length === 16){
+    clearInterval(interval);
+    allMatched();
+  }
 }
 
-document.addEventListener('click',function(e) {
+document.addEventListener('click',function(e,) {
   let pick = e.target;
   if (pick.className === "card") {
     selections.unshift(pick);
     cardClick(e);
+  } else if (pick.className === 'fa fa-repeat') {
+    readyGame(deckArr);
+  } else if (pick.className === 'fa fa-repeat modal') {
+    newGame(deckArr);
   }
 });
 
@@ -66,6 +103,7 @@ function flipCard(e) {
 
 function compare(selections, e) {
   let currentCards = document.getElementsByClassName('card match');
+
   flips++
   if (flips === 2) {
     flipCard(e);
@@ -96,13 +134,16 @@ function compare(selections, e) {
 // check for completion
 
 function allMatched() {
-  let modal = document.getElementById('win-modal');
-  let finalMoves = document.getElementById('final-moves');
-  let finalTime = document.getElementById('final-time');
-    finalMoves.innerHTML = moves;
+  let modal = document.querySelector('#win-modal');
+  let modalOverlay = document.querySelector('#modal-overlay');
+  let finalMoves = document.querySelector('#final-moves');
+  let finalTime = document.querySelector('#final-time');
+
+  modalOverlay.classList.toggle('closed');
+  modal.classList.toggle('closed');
+  finalMoves.innerHTML = moves;
     // document.getElementById('final-rank').innerHTML = rank;
-    finalTime.innerHTML = seconds;
-    modal.style = "visibility: visible;";
+  finalTime.innerHTML = seconds + ' seconds';
 }
 
 // timer
@@ -112,6 +153,22 @@ function timer() {
   timeEl.innerHTML = seconds;
 }
 
+// Star ranking
+
+function starRank(cardMatches) {
+  let stars = document.querySelector(".stars");
+  let modalStars = document.querySelector('#final-rank');
+
+  if (moves >= 50) {
+    stars.children[0].style.display = 'none';
+    stars.children[1].style.display = 'none';
+    modalStars.children[0].style.display = 'none';
+    modalStars.children[1].style.display = 'none';
+  } else if (moves >= 30 ) {
+      stars.children[0].style.display = 'none';
+      modalStars.children[0].style.display = 'none';
+  }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
