@@ -107,3 +107,90 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.fa-repeat.modal {
+  font-size: 30px;
+}
+
+.fa-repeat:hover {
+  cursor: pointer;
+}
+
+/*
+ * Modal Styles
+ */
+
+ .win-modal {
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #fff;
+   width: 600px;
+   max-width: 100%;
+   height: 400px;
+   max-height: 100%;
+   border-radius: 10px;
+   z-index: 100;
+ }
+
+ .modal-content {
+   text-align: center;
+   color: #666;
+ }
+
+ .modal-restart {
+   display: block;
+ }
+
+ .modal-content > div {
+   display: inline-block;
+   margin-left: 15px;
+ }
+
+ .modal-rank ul {
+   text-align: center;
+ }
+
+ .modal-rank ul li {
+   display: inline-block;
+   margin-right: 20px;
+ }
+
+ .modal-overlay {
+  position: fixed;
+  background-color: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+}
+
+.closed {
+  visibility: hidden;
+}
+
+.no-match {
+  background: #ff4300;
+  transition-property: background 1s ease;
+}
+
+#restart:hover {
+  font-size: 35px;
+  transition: font-size 1s;
+}
+
+@media screen and (max-width: 700px) {
+  .deck {
+    width: 100%;
+  }
+  .deck .card {
+    width: 20%;
+    margin: 5px;
+  }
+
+  .modal {
+    width: 100%;
+  }
+}

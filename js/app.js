@@ -17,10 +17,6 @@ readyGame(deckArr);
 function readyGame(arr) {
   let deck = document.querySelectorAll('.deck, li');
   let shuffledCards = shuffle(cardArr);
-  let moves = document.querySelector('#moves');
-  let timer = document.querySelector('#timer');
-  timer = 0;
-  moves = 0;
   resetCards(selections);
   for (let i = 0; i < arr.length; i++) {
     let elm = arr[i];
@@ -30,16 +26,15 @@ function readyGame(arr) {
  }
 
  function newGame(arr) {
-   let modal = document.querySelector('#win-modal');
-   let modalOverlay = document.querySelector('#modal-overlay');
    let secondElem = document.querySelector('#timer');
-   let movesElem = document.querySelector('#moves')
-   modal.classList.toggle('closed');
-   modalOverlay.classList.toggle('closed');
+   let movesElem = document.querySelector('#moves');
+   let stars = document.querySelector(".stars");
    secondElem.innerHTML = '';
    movesElem.innerHTML ='';
+   resetStars(stars);
    seconds = 0;
    moves = 0;
+   clearInterval(interval);
    readyGame(arr);
  }
 
@@ -74,21 +69,25 @@ function cardClick(e) {
   moves++;
   movesEl.innerHTML = moves;
   compare(selections, e);
-  starRank(currentCards);
   if (currentCards.length === 16){
     clearInterval(interval);
     allMatched();
   }
+  starRank(currentCards);
 }
 
 document.addEventListener('click',function(e,) {
   let pick = e.target;
+  let modal = document.querySelector('#win-modal');
+  let modalOverlay = document.querySelector('#modal-overlay');
   if (pick.className === "card") {
     selections.unshift(pick);
     cardClick(e);
   } else if (pick.className === 'fa fa-repeat') {
-    readyGame(deckArr);
+    newGame(deckArr);
   } else if (pick.className === 'fa fa-repeat modal') {
+    modal.classList.toggle('closed');
+    modalOverlay.classList.toggle('closed');
     newGame(deckArr);
   }
 });
@@ -111,13 +110,13 @@ function compare(selections, e) {
       let card1 = selections[0];
       let card2 = selections[1];
       if (card1.firstElementChild.className === card2.firstElementChild.className) {
-        card1.className = 'card match'
-        card2.className = 'card match'
+        card1.className = 'card match';
+        card2.className = 'card match';
         break;
       } else {
         setTimeout(function() {
-          card1.className = 'card'
-          card2.className = 'card'
+          card1.className = 'card';
+          card2.className = 'card';
         }, 700);
       }
     }
@@ -142,7 +141,6 @@ function allMatched() {
   modalOverlay.classList.toggle('closed');
   modal.classList.toggle('closed');
   finalMoves.innerHTML = moves;
-    // document.getElementById('final-rank').innerHTML = rank;
   finalTime.innerHTML = seconds + ' seconds';
 }
 
@@ -156,17 +154,23 @@ function timer() {
 // Star ranking
 
 function starRank(cardMatches) {
-  let stars = document.querySelector(".stars");
-  let modalStars = document.querySelector('#final-rank');
+  let stars = document.querySelector('.stars');
+  let modalStars = document.querySelector('.modal-stars');
 
   if (moves >= 50) {
-    stars.children[0].style.display = 'none';
-    stars.children[1].style.display = 'none';
+    stars.children[0].style.visibility = 'hidden';
+    stars.children[1].style.visibility = 'hidden';
     modalStars.children[0].style.display = 'none';
     modalStars.children[1].style.display = 'none';
   } else if (moves >= 30 ) {
-      stars.children[0].style.display = 'none';
+      stars.children[0].style.visibility = 'hidden';
       modalStars.children[0].style.display = 'none';
+  }
+}
+
+function resetStars(starNode) {
+  for (var i = 0; i < starNode.children.length; i++) {
+    starNode.children[i].style.visibility = 'visible';
   }
 }
 

@@ -22,8 +22,8 @@
         		<li><i class="fa fa-star"></i></li>
         	</ul>
 
-        	<span class="moves">3</span> Moves
-           Time: <span id="timer"></span>
+        	 Moves <span id="moves"></span>
+           Time <span id="timer"></span>
             <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>
@@ -80,6 +80,32 @@
             </li>
         </ul>
     </div>
+
+    <div class="win-modal closed" id="win-modal">
+      <div class="modal-content">
+        <h2>You win!</h2>
+        <div class="modal-moves">
+          <h3>Moves</h3>
+            <span id="final-moves"></span>
+        </div>
+        <div class="modal-rank">
+          <h3>Rank</h3>
+            <ul class="modal-stars">
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star"></i></li>
+              <li><i class="fa fa-star"></i></li>
+          </ul>
+        </div>
+        <div class="modal-time">
+          <h3>Time</h3>
+            <span id="final-time"></span>
+        </div>
+          <h2>Play Again!</h2>
+            <span class="fa fa-repeat modal" id="restart"></span>
+      </div>
+    </div>
+
+    <div class="modal-overlay closed" id="modal-overlay"></div>
 
     <script src="js/app.js"></script>
 </body>
